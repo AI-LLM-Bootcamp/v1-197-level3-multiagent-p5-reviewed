@@ -2,7 +2,7 @@ from typing import List, Type
 from pydantic.v1 import BaseModel, Field
 import os
 import requests
-from crewai_tools import BaseTool
+from tools.base_tool import BaseTool  # before: from crewai_tools import BaseTool (see tools/base_tool.py)
 
 
 class VideoSearchResult(BaseModel):

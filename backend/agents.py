@@ -1,7 +1,7 @@
 from typing import List
 from crewai import Agent
-from langchain_openai import ChatOpenAI
-from crewai_tools import SerperDevTool
+from llm import create_llm
+from tools.serper_dev_tool import SerperDevTool  # before: from crewai_tools import SerperDevTool (see tools/base_tool.py)
 from tools.youtube_search_tools import YoutubeVideoSearchTool
 
 
@@ -10,7 +10,10 @@ class ResearchAgents():
     def __init__(self):
         self.searchInternetTool = SerperDevTool()
         self.youtubeSearchTool = YoutubeVideoSearchTool()
-        self.llm = ChatOpenAI(model="gpt-4-turbo-preview")
+        # Original version: ChatOpenAI(model="gpt-4-turbo-preview").
+        # That model has been shut down; llm.py explains the current model
+        # and the small adaptations this version of CrewAI needs.
+        self.llm = create_llm()
 
     def research_manager(self, technologies: List[str], businessareas: List[str]) -> Agent:
         return Agent(
